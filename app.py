@@ -1,28 +1,51 @@
-from flask import Flask
-from datetime import datetime
-import re
+from flask import Flask, render_template, request
+import pandas as pd
+
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "Hello, Flask!"
+    return render_template('home.html')
 
-@app.route("/hello/<name>")
-def hello_there(name):
-    now = datetime.now()
-    formatted_now = now.strftime("%A, %d %B, %Y at %X")
+@app.route("/songlibrary")
+def songlibrary():
+    df = pd.read_csv ('./static/SongLibrary.csv')
+    df_html = df.to_html()
+    return render_template('songlibrary.html', **locals())
 
-    # Filter the name argument to letters only using regular expressions. URL arguments
-    # can contain arbitrary text, so we restrict to safe characters only.
-    match_object = re.match("[a-zA-Z]+", name)
+@app.route("/getsongsbysinger")
+def getsongsbysinger():
+    df = pd.read_csv ('./static/SongLibrary.csv')
+    singer = request.args.get('singer')
+    filter = df['Singer'] == singer
+    results = df[filter]
+    return results.to_html()
 
-    if match_object:
-        clean_name = match_object.group(0)
-    else:
-        clean_name = "Friend"
+@app.route("/getsongbysongname")
+def getsongbysongname():
+    df = pd.read_csv ('./static/SongLibrary.csv')
+    name = request.args.get('name')
+    filter = df['SongName'] == name
+    results = df[filter]
+    return results.to_html()
 
-    content = "Hello there, " + clean_name + "! It's " + formatted_now
-    return content
+@app.route("/submitBySinger", methods=['POST'])
+def submitBySinger():
+    Singer = request.values['Singer']
+    ResultHeader = 'Hello, Here is Your Search Result!! ＼（＾∀＾）メ（＾∀＾）ノ'
+    df = pd.read_csv ('./static/SongLibrary.csv')
+    filter = df['Singer'] == Singer
+    results = df[filter].to_html()
+    return render_template('home.html',**locals())
+
+@app.route("/submitBySong", methods=['POST'])
+def submitBySong():
+    Song = request.values['Song']
+    ResultHeader = 'Hello, Here is Your Search Result!! ＼（＾∀＾）メ（＾∀＾）ノ'
+    df = pd.read_csv ('./static/SongLibrary.csv')
+    filter = df['SongName'] == Song
+    results = df[filter].to_html()
+    return render_template('home.html',**locals())
 
 if __name__ == "__main__":
     app.run()

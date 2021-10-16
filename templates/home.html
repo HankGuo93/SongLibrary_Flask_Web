@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="row">
+    <div class="col">
+        <form method="POST" action="{{url_for('submitBySinger')}}">
+            <div class="form-row">
+                <div class="col-12 mt-3">
+                    <input type="text" class="form-control" name="Singer" placeholder="Singer">
+                </div>
+                <div class="col-12 mt-3 pt-3">
+                    <button type="submit" class="btn btn-primaryA">Submit
+                    </button>
+                </div>
+            </div>
+        </form>
+        <form method="POST" action="{{url_for('submitBySong')}}">
+            <div class="form-row">
+                <div class="col-12 mt-4">
+                    <input type="text" class="form-control" name="Song" placeholder="Song">
+                </div>
+                <div class="col-12 mt-4 pt-4">
+                    <button type="submit" class="btn btn-primaryB">Submit
+                    </button>
+                </div>
+        </form>
+    </div>
+    <br>
+    <div>
+        <a>{{ResultHeader}}</a>
+            {{results | safe}}
+    </div>
+</div>
+{% endblock %}
