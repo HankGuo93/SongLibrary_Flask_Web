@@ -15,3 +15,15 @@
 可以先點擊 SongLibrary 分頁看有什麼歌，再回首頁搜尋。
 
 [奈米作品實體(VM關閉中，怕免費期限到了，信用卡爆炸)](http://3.140.248.242:8000/)
+
+
+### 一些畫面
+
+* 首頁
+![image](https://user-images.githubusercontent.com/52509416/153615152-bc0f70b2-6264-41ab-b2e5-c6d72e310bdc.png)
+
+* 歌曲庫
+![image](https://user-images.githubusercontent.com/52509416/153615226-ee8bed9b-4b02-4918-a9ad-28a52909d51b.png)
+
+* 搜尋
+![image](https://user-images.githubusercontent.com/52509416/153615303-b1dec9af-ba49-43a6-973c-3ec55e80f15a.png)
